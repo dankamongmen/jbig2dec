@@ -38,7 +38,7 @@ jbig2_png_write_data(png_structp png_ptr, png_bytep data, png_size_t length)
 {
     png_size_t check;
 
-    check = fwrite(data, 1, length, (png_FILE_p)png_ptr->io_ptr);
+    check = fwrite(data, 1, length, png_get_io_ptr(png_ptr));
     if (check != length) {
       png_error(png_ptr, "Write Error");
     }
@@ -47,8 +47,9 @@ jbig2_png_write_data(png_structp png_ptr, png_bytep data, png_size_t length)
 static void
 jbig2_png_flush(png_structp png_ptr)
 {
-    png_FILE_p io_ptr;
-    io_ptr = (png_FILE_p)CVT_PTR((png_ptr->io_ptr));
+    png_voidp io_ptr;
+
+    io_ptr = png_get_io_ptr(png_ptr);
     if (io_ptr != NULL)
         fflush(io_ptr);
 }
