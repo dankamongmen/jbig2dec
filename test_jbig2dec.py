@@ -52,6 +52,7 @@ class SelfTestSuite:
 	(len(self.fails),len(self.tests)))
     else:
       self.stream.write('PASSED all %d tests\n' % len(self.tests))
+    return len(self.fails) == 0
 
 class KnownFileHash(SelfTest):
   'self test to check for correct decode of known test files'
